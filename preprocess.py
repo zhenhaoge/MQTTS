@@ -19,11 +19,22 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--giga_speech_dir', type=str, required=True)
 parser.add_argument('--outputdir', type=str, required=True)
 
+# workdir = '/home/users/zge/code/repo/mqtts'
+# os.chdir(workdir)
+
+path_phonemizer = 'en_us_cmudict_forward.pt'
+# path_phonemizer = os.path.join(workdir, 'en_us_cmudict_forward.pt')
+
+# runtime mode
 args = parser.parse_args()
 
-DATA_DIR = Path(args.giga_speech_dir) / Path('audio')
-metadata_path = Path(args.giga_speech_dir) / Path('GigaSpeech.json')
-phonemizer = Phonemizer.from_checkpoint('en_us_cmudict_forward.pt')
+# interactive mode
+args = argparse.ArgumentParser()
+args.giga_speech_dir = '/home/users/zge/data1/datasets/GigaSpeech'
+
+DATA_DIR = os.path.join(args.giga_speech_dir, 'audio')
+metadata_path = os.path.join(args.giga_speech_dir, 'GigaSpeech.json')
+phonemizer = Phonemizer.from_checkpoint(path_phonemizer)
 output = {}
 
 print ('Loading Labelfile...')
